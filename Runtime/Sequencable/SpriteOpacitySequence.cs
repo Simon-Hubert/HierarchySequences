@@ -1,4 +1,5 @@
 using UnityEngine;
+using ShowColors;
 
 namespace HierarchySequences
 {
@@ -8,8 +9,7 @@ namespace HierarchySequences
         [SerializeField] private float _duration;
         [SerializeField] private AnimationCurve _curve;
         
-        public override async Awaitable ExecuteAsync() {
-            if (!RequirementsValidated()) return;
+        protected override async Awaitable OnPlay(){
             float t = 0;
             Color col = _spriteRenderer.color;
             col.a = _curve.Evaluate(0);
@@ -31,19 +31,12 @@ namespace HierarchySequences
             return _spriteRenderer && _duration > 0;
         }
 
-        private void OnValidate() {
-            if (!RequirementsValidated()) return;
-            name = $"Animate Opacity of {_spriteRenderer.name}";
+        protected override string GetName()  {
+            return $"Animate Opacity of {_spriteRenderer.name}";
         }
         
 #if UNITY_EDITOR
-        public override InspectorColor GetInspectorColor() {
-            return new InspectorColor
-            {
-                Background = ColorHelpers.ColorFromOKLCH(BackgroundLightness, CHROMA, 270f),
-                Text = ColorHelpers.ColorFromOKLCH(TextLightness, CHROMA, 270f),
-            };
-        }
+        protected override float Hue => 180f;
 #endif
     }
 

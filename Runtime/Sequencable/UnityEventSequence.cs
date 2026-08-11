@@ -1,3 +1,4 @@
+using ShowColors;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,10 +6,10 @@ namespace HierarchySequences
 {
     public class UnityEventSequence : ASequencable
     {
-        [SerializeField] private UnityEvent _event;
+        [SerializeField] private UnityEvent _event = new UnityEvent();
         
 
-        public override async Awaitable ExecuteAsync() {
+        protected override async Awaitable OnPlay() {
             _event?.Invoke();
         }
         
@@ -16,18 +17,12 @@ namespace HierarchySequences
             return _event.GetPersistentEventCount() > 0;
         }
 
-        private void OnValidate() {
-            name = $"Invoke Event with {_event.GetPersistentEventCount()} binds";
+        protected override string GetName() {
+            return $"Invoke Event with {_event.GetPersistentEventCount()} binds";
         }
         
 #if UNITY_EDITOR
-        public override InspectorColor GetInspectorColor() {
-            return new InspectorColor
-            {
-                Background = ColorHelpers.ColorFromOKLCH(BackgroundLightness, CHROMA, 247f),
-                Text = ColorHelpers.ColorFromOKLCH(TextLightness, CHROMA, 247f),
-            };
-        }
+        protected override float Hue => 216f;
 #endif
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace HierarchySequences
@@ -7,10 +6,8 @@ namespace HierarchySequences
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private string _parameter;
-        
-        public override async Awaitable ExecuteAsync() {
-            if (!RequirementsValidated()) return;
-            
+
+        protected override async Awaitable OnPlay() {
             _animator.SetBool(_parameter, true);
         }
 
@@ -18,19 +15,12 @@ namespace HierarchySequences
             return _animator != null;
         }
 
-        public void OnValidate() {
-            if (!RequirementsValidated()) return;
-            name = $"Play {_animator.name} : _parameter";
+        protected override string GetName() {
+            return $"Play {_animator.name} : {_parameter}";
         }
 
 #if UNITY_EDITOR
-        public override InspectorColor GetInspectorColor() {
-            return new InspectorColor
-            {
-                Background = ColorHelpers.ColorFromOKLCH(BackgroundLightness, CHROMA, 47f),
-                Text = ColorHelpers.ColorFromOKLCH(TextLightness, CHROMA, 47f),
-            };
-        }
+        protected override float Hue => 36f;
 #endif
     }
 }

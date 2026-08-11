@@ -10,7 +10,6 @@ namespace HierarchySequences
         public event Action SequenceEnded;
 
         private void Awake() {
-            //TODO faire ce setup in editor
             foreach (Transform child in transform) {
                 if (!child.gameObject.activeSelf) continue;
                 ASequencable sequencable = child.GetComponent<ASequencable>();
@@ -22,10 +21,9 @@ namespace HierarchySequences
             _ = ExecuteAsync();
         }
         
-        public override async Awaitable ExecuteAsync() {
+        protected override async Awaitable OnPlay()  {
             try {
                 foreach (ASequencable element in _sequence) {
-                    Debug.Log($"{element.name} executing !");
                     await element.ExecuteAsync();
                 }
             }

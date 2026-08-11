@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace HierarchySequences
@@ -8,8 +7,7 @@ namespace HierarchySequences
         [SerializeField] private GameObject _object;
         [SerializeField] private bool _active;
         
-        public override async Awaitable ExecuteAsync() {
-            if (!RequirementsValidated()) return;
+        protected override async Awaitable OnPlay() {
             _object.SetActive(_active);
         }
 
@@ -17,19 +15,12 @@ namespace HierarchySequences
             return _object != null;
         }
 
-        public void OnValidate() {
-            if (!RequirementsValidated()) return;
-            name = (_active ? "Activate" : "Deactivate") + $" {_object.name}";
+        protected override string GetName() {
+            return (_active ? "Activate" : "Deactivate") + $" {_object.name}";
         }
 
 #if UNITY_EDITOR
-        public override InspectorColor GetInspectorColor() {
-            return new InspectorColor
-            {
-                Background = ColorHelpers.ColorFromOKLCH(BackgroundLightness, CHROMA, 47f),
-                Text = ColorHelpers.ColorFromOKLCH(TextLightness, CHROMA, 47f),
-            };
-        }
+        protected override float Hue => 0f;
 #endif
     }
 }

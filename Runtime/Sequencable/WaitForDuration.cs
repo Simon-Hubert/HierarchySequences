@@ -1,3 +1,4 @@
+using ShowColors;
 using UnityEngine;
 
 namespace HierarchySequences
@@ -6,8 +7,7 @@ namespace HierarchySequences
     {
         [SerializeField] private float _duration;
         
-        public override async Awaitable ExecuteAsync() {
-            if (!RequirementsValidated()) return;
+        protected override async Awaitable OnPlay() {
             await Awaitable.WaitForSecondsAsync(_duration);
         }
         
@@ -15,18 +15,12 @@ namespace HierarchySequences
             return _duration > 0;
         }
 
-        private void OnValidate() {
-            name = $"Wait for {_duration} sec";
+        protected override string GetName() {
+            return $"Wait for {_duration} sec";
         }
         
 #if UNITY_EDITOR
-        public override InspectorColor GetInspectorColor() {
-            return new InspectorColor
-            {
-                Background = ColorHelpers.ColorFromOKLCH(BackgroundLightness, CHROMA, 143f),
-                Text = ColorHelpers.ColorFromOKLCH(TextLightness, CHROMA, 143f),
-            };
-        }
+        protected override float Hue => 252f;
 #endif
     }
 }

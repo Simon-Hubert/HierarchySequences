@@ -2,7 +2,7 @@
     "name": "HierarchySequences",
     "rootNamespace": "HierarchySequences",
     "references": [
-        "GUID:776d03a35f1b52c4a9aed9f56d7b4229"
+        "GUID:f835d97a61acd22498aeadc5396cefd6"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -11,6 +11,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.showmielle.colors",
+            "expression": "",
+            "define": "SHOW_COLORS"
+        }
+    ],
     "noEngineReferences": false
 }

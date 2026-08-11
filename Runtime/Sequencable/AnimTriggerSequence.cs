@@ -1,4 +1,3 @@
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace HierarchySequences
@@ -6,30 +5,22 @@ namespace HierarchySequences
     public class AnimTriggerSequence : ASequencable
     {
         [SerializeField] private Animator _animator;
-        [SerializeField, AnimatorParam("_animator")] private string _triggerId;
+        [SerializeField] private string _triggerName;
         
-        public override async Awaitable ExecuteAsync() {
-            if (!RequirementsValidated()) return;
-            _animator.SetTrigger(_triggerId);
+        protected override async Awaitable OnPlay() {
+            _animator.SetTrigger(_triggerName);
         }
 
         public override bool RequirementsValidated() {
-            return _animator && _triggerId.Length > 0;
+            return _animator && _triggerName.Length > 0;
         }
 
-        private void OnValidate() {
-            if (!RequirementsValidated()) return;
-            name = $"Set {_triggerId} on {_animator.name}";
+        protected override string GetName() {
+            return $"Set {_triggerName} on {_animator.name}";
         }
         
 #if UNITY_EDITOR
-        public override InspectorColor GetInspectorColor() {
-            return new InspectorColor
-            {
-                Background = ColorHelpers.ColorFromOKLCH(BackgroundLightness, CHROMA, 300f),
-                Text = ColorHelpers.ColorFromOKLCH(TextLightness, CHROMA, 300f),
-            };
-        }
+        protected override float Hue => 72f;
 #endif
     }
 }
