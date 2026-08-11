@@ -1,0 +1,13 @@
+{
+  "name": "com.showmielle.hierarchysequences",
+  "version": "0.0.1",
+  "displayName": "HierarchySequences",
+  "description": "A Sequencer in the Unity Hierarchy",
+  "dependencies": {
+    "com.dbrizov.naughtyattributes": "2.1.6"
+  },
+  "author": {
+    "name": "Showmielle"
+  },
+  "unity": "6000.3"
+}
