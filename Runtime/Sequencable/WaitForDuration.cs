@@ -1,4 +1,3 @@
-using ShowColors;
 using UnityEngine;
 
 namespace HierarchySequences

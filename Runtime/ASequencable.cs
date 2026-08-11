@@ -1,4 +1,6 @@
+#if SHOW_COLORS
 using ShowColors;
+#endif
 using UnityEngine;
 
 namespace HierarchySequences
