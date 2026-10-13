@@ -16,10 +16,9 @@ public class SequenceSearchProvider : ScriptableObject, ISearchWindowProvider
         public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context) {
             List<SearchTreeEntry> tree = new List<SearchTreeEntry>();
 
-            Assembly assembly = typeof(ASequencable).Assembly;
-            foreach(Assembly assembly in System.AppDomain.currentDomain.GetAssemblies()){
+            foreach(Assembly assembly in System.AppDomain.CurrentDomain.GetAssemblies()){
 
-                tree.Add(new SearchTreeGroupEntry(new GUIContent(assembly.rootNamespace)));
+                tree.Add(new SearchTreeGroupEntry(new GUIContent(assembly.FullName)));
                 foreach (Type type in assembly.GetTypes()) {
                     if (typeof(ASequencable).IsAssignableFrom(type) && !type.IsAbstract) {
                         SearchTreeEntry entry = new SearchTreeEntry(new GUIContent(type.Name));
