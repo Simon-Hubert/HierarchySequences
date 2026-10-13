@@ -19,7 +19,7 @@ public class SequenceSearchProvider : ScriptableObject, ISearchWindowProvider
             Assembly assembly = typeof(ASequencable).Assembly;
             foreach(Assembly assembly in CompilationPipeline.GetAssemblies()){
 
-                tree.Add(new SearchTreeGroupEntry(new GUIContent(assembly.rootNamespace));
+                tree.Add(new SearchTreeGroupEntry(new GUIContent(assembly.rootNamespace)));
                 foreach (Type type in assembly.GetTypes()) {
                     if (typeof(ASequencable).IsAssignableFrom(type) && !type.IsAbstract) {
                         SearchTreeEntry entry = new SearchTreeEntry(new GUIContent(type.Name));

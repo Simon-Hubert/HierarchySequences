@@ -1,6 +1,6 @@
 {
   "name": "com.showmielle.hierarchysequences",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "displayName": "HierarchySequences",
   "description": "A Sequencer in the Unity Hierarchy",
   "author": {
