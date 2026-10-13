@@ -6,7 +6,6 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEditor.Compilation;
 
 namespace HierarchySequences.Editor
 {
@@ -18,7 +17,7 @@ public class SequenceSearchProvider : ScriptableObject, ISearchWindowProvider
             List<SearchTreeEntry> tree = new List<SearchTreeEntry>();
 
             Assembly assembly = typeof(ASequencable).Assembly;
-            foreach(Assembly assembly in CompilationPipeline.GetAssemblies()){
+            foreach(Assembly assembly in System.AppDomain.currentDomain.GetAssemblies()){
 
                 tree.Add(new SearchTreeGroupEntry(new GUIContent(assembly.rootNamespace)));
                 foreach (Type type in assembly.GetTypes()) {
