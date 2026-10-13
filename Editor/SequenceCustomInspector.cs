@@ -16,6 +16,8 @@ public class SequenceSearchProvider : ScriptableObject, ISearchWindowProvider
         public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context) {
             List<SearchTreeEntry> tree = new List<SearchTreeEntry>();
 
+            tree.Add(new SearchTreeGroupEntry(new GUIContent("Sequencables")));
+
             foreach (Assembly assembly in System.AppDomain.CurrentDomain.GetAssemblies())
             {
                 bool isAssemblyAdded = false;
@@ -26,7 +28,7 @@ public class SequenceSearchProvider : ScriptableObject, ISearchWindowProvider
                     {
                         if(!isAssemblyAdded){
                             isAssemblyAdded = true;
-                            
+
                             tree.Add(new SearchTreeGroupEntry(new GUIContent(assembly.GetName().Name))
                             {
                                 level = 1
